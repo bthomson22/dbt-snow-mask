@@ -2,7 +2,7 @@ name: 'dbt_snow_mask_integration_tests'
 version: '1.0'
 config-version: 2
 
-profile: 'dbt-snow-utils-integration-tests'
+profile: 'sandbox-snowflake'
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -32,20 +32,20 @@ seeds:
     +schema: seeds
 
 models:
-  pre-hook:
+  +pre-hook:
     - "{{ dbt_snow_mask.create_masking_policy('models')}}"
-  post-hook: 
+  +post-hook: 
 #    - "{{ dbt_snow_mask.apply_masking_policy('models') }}"
 #    - "{{ dbt_snow_mask.unapply_masking_policy('models') }}"
 
 snapshots:
-  post-hook: 
+  +post-hook: 
     - "{{ dbt_snow_mask.apply_masking_policy('snapshots') }}"
   
   dbt_snow_mask_integration_tests:
     pii:
-      database: "DEV_ENTECHLOG_DEMO_DB"
-      schema: staging
+      +database: "DEV_ENTECHLOG_DEMO_DB"
+      +schema: staging
 
 on-run-start:
   - "{{ dbt_snow_mask.create_masking_policy('sources')}}"
