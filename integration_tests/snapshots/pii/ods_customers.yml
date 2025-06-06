@@ -1,8 +1,14 @@
-version: 2
-
 snapshots:
   - name: ods_customers
+    relation: source('seeds', 'customer')
+    config:
+      schema: pii
+      strategy: timestamp
+      unique_key: customer_id
+      updated_at: last_update
+      invalidate_hard_deletes: true
     columns:
       - name: email
-        meta:
-          masking_policy: mp_encrypt_pii
+        config:
+          meta:
+            masking_policy: mp_encrypt_pii
