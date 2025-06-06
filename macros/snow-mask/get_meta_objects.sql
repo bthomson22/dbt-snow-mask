@@ -2,16 +2,16 @@
 	{% if execute %}
 
         {% set meta_columns = [] %}
-        {% if node_resource_type == "source" %} 
+        {% if node_unique_id.startswith("source") %} 
             {% set columns = graph.sources[node_unique_id]['columns']  %}
         {% else %}
             {% set columns = graph.nodes[node_unique_id]['columns']  %}
         {% endif %}
         
         {% if meta_key is not none %}
-            {% if node_resource_type == "source" %} 
-                {% for column in columns if graph.sources[node_unique_id]['columns'][column]['meta'][meta_key] | length > 0 %}
-                    {% set meta_dict = graph.sources[node_unique_id]['columns'][column]['meta'] %}
+            {% if node_unique_id.startswith("source") %} 
+                {% for column in columns if graph.sources[node_unique_id]['columns'][column]['config']['meta'][meta_key] | length > 0 %}
+                    {% set meta_dict = graph.sources[node_unique_id]['columns'][column]['config']['meta'] %}
                     {% if meta_key in meta_dict %}
                         {% set policy_name = meta_dict[meta_key] %}
                         {% if "mp_conditional_columns" in meta_dict %}
@@ -24,8 +24,8 @@
                     {% endif %}
                 {% endfor %}
             {% else %}
-                {% for column in columns if graph.nodes[node_unique_id]['columns'][column]['meta'][meta_key] | length > 0 %}
-                    {% set meta_dict = graph.nodes[node_unique_id]['columns'][column]['meta'] %}
+                {% for column in columns if graph.nodes[node_unique_id]['columns'][column]['config']['meta'][meta_key] | length > 0 %}
+                    {% set meta_dict = graph.nodes[node_unique_id]['columns'][column]['config']['meta'] %}
                     {% if meta_key in meta_dict %}
                         {% set policy_name = meta_dict[meta_key] %}
                         {% if "mp_conditional_columns" in meta_dict %}

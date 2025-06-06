@@ -1,4 +1,4 @@
-{% macro create_masking_policy_mp_conditional_contacts_pii(node_database, node_schema, masked_column) %}
+{% macro snowflake__create_masking_policy_mp_conditional_contacts_pii(node_database, node_schema, masked_column) %}
 
     CREATE MASKING POLICY IF NOT EXISTS {{node_database}}.{{node_schema}}.mp_conditional_contacts_pii AS (
         {{masked_column}} string,

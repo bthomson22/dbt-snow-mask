@@ -1,4 +1,4 @@
-{% macro create_masking_policy_mp_ip(node_database,node_schema) %}
+{% macro snowflake__create_masking_policy_mp_ip(node_database,node_schema) %}
 
 CREATE MASKING POLICY IF NOT EXISTS {{node_database}}.{{node_schema}}.mp_ip AS (val string) 
   RETURNS string ->
