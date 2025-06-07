@@ -2,14 +2,14 @@
 	{% if execute %}
 
         {% set meta_columns = [] %}
-        {% if node_unique_id.startswith("source") %} 
+        {% if node_resource_type == "source" %} 
             {% set columns = graph.sources[node_unique_id]['columns']  %}
         {% else %}
             {% set columns = graph.nodes[node_unique_id]['columns']  %}
         {% endif %}
         
         {% if meta_key is not none %}
-            {% if node_unique_id.startswith("source") %} 
+            {% if node_resource_type == "source" %} 
                 {% for column in columns if meta_key in graph.sources[node_unique_id]['columns'][column]['config']['meta'] %}
                     {% set meta_dict = graph.sources[node_unique_id]['columns'][column]['config']['meta'] %}
                     {% set policy_name = meta_dict[meta_key] %}
