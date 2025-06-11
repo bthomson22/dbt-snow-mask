@@ -12,8 +12,8 @@
             {% if node_resource_type == "source" %} 
                 {% for column in columns %}
                     {% set col = graph.sources[node_unique_id]['columns'][column] %}
-                    {% if col['config'] and meta_key in col['config']['meta'] %}
-                        {% set meta_dict = col['config']['meta'] %}
+                    {% if (col['config'] and meta_key in col['config']['meta']) or meta_key in col['meta'] %}
+                        {% set meta_dict = col['config']['meta'] or col['meta'] %}
                         {% set policy_name = meta_dict[meta_key] %}
                         {% if "mp_conditional_columns" in meta_dict %}
                             {% set conditional_columns = meta_dict['mp_conditional_columns'] %}
@@ -27,8 +27,8 @@
             {% else %}
                 {% for column in columns %}
                     {% set col = graph.nodes[node_unique_id]['columns'][column] %}
-                    {% if col['config'] and meta_key in col['config']['meta'] %}
-                        {% set meta_dict = col['config']['meta'] %}
+                    {% if (col['config'] and meta_key in col['config']['meta']) or meta_key in col['meta'] %}
+                        {% set meta_dict = col['config']['meta'] or col['meta'] %}
                         {% set policy_name = meta_dict[meta_key] %}
                         {% if "mp_conditional_columns" in meta_dict %}
                             {% set conditional_columns = meta_dict['mp_conditional_columns'] %}
