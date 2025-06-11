@@ -4,11 +4,17 @@
 
     {% if operation_type == "apply" %}
 
+        {{ print("Got here") }}
+
         {% set model_id = model.unique_id | string %}
         {% set alias    = model.alias %}
         {% set database = model.database %}
         {% set schema   = model.schema %}
-        {% set model_resource_type = model.resource_type | string %}
+        
+        {# -- TODO: Implement model.resource_type in post-hook context #}
+        {% set model_resource_type = model.unique_id.split('.')[0] %}
+
+        {{ print("Resource type: " ~ model_resource_type) }}
 
         {% if model_resource_type|lower in ["model", "snapshot"] %}
 
