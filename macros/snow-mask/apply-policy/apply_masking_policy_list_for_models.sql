@@ -9,9 +9,6 @@
         {% set database = model.database %}
         {% set schema   = model.schema %}
         {% set model_resource_type = model.resource_type | string %}
-        
-        {# -- TODO: Implement model.resource_type in post-hook context #}
-        {# {% set model_resource_type = model.unique_id.split('.')[0] %} #}
 
         {% if model_resource_type|lower in ["model", "snapshot"] %}
 
